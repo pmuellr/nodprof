@@ -1,6 +1,6 @@
 {
   "name": "nodprof",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "profiling"
   ],
@@ -21,7 +21,6 @@
      "bindings":      "1.1.x",
      "d3":            "3.2.x",
      "express":       "3.3.x",
-     "node-gyp":      "0.10.x",
      "nopt":          "2.1.x",
      "underscore":    "1.5.x"
   },
