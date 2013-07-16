@@ -1,0 +1,35 @@
+{
+  "name": "nodprof",
+  "version": "0.1.0",
+  "keywords": [
+    "profiling"
+  ],
+  "description": "profiling for node.js using v8 natives",
+  "homepage": "https://github.com/pmuellr/nodprof",
+  "main": "lib",
+  "bin": {
+    "nodprof": "./bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmuellr/nodprof.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pmuellr/nodprof/issues"
+  },
+  "dependencies": {
+     "bindings":      "1.1.x",
+     "d3":            "3.2.x",
+     "express":       "3.3.x",
+     "node-gyp":      "0.10.x",
+     "nopt":          "2.1.x",
+     "underscore":    "1.5.x"
+  },
+  "devDependencies": {
+    "browserify":     "2.25.x",
+    "coffee-script":  "1.6.x",
+    "mocha":          "1.12.x",
+    "supervisor":     "0.5.x",
+    "wr":             "1.2.x"
+  }
+}
