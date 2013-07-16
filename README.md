@@ -1,25 +1,5 @@
 <!-- Licensed under the Apache License. See footer for details. -->
 
-<style>
-.object-def {
-    width:          100%;
-    margin-left:    3em;
-}
-.object-def .name, .object-def .type {
-    font-family:    monospace;
-    font-weight:    bold;
-    white-space:    nowrap;
-    width:          25%;
-}
-.object-def .type {
-    font-style:     italic;
-}
-.object-def td {
-    vertical-align: top;
-    padding-right:  2em;
-}
-</style>
-
 `nodprof` - profiling for node.js
 ================================================================================
 
