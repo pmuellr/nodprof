@@ -60,7 +60,7 @@ BodyController = ($scope, $http) ->
     #---------------------------------------------------------------------------
     $scope.appName = "nodprof"
     $scope.error   = null
-    $scope.days    = getSampleDays()
+    $scope.days    = []
 
     $scope.refreshFiles()
 

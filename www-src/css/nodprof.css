@@ -1,5 +1,9 @@
 /* Licensed under the Apache License. See footer for details. */
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none;
+}
+
 .day {
     font-weight:    bold;
 }

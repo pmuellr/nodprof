@@ -10,8 +10,6 @@ amod = angular.module "nodprof", []
 
 controllers amod
 
-require "./ui"
-
 #-------------------------------------------------------------------------------
 # Copyright 2013 I.B.M.
 # 

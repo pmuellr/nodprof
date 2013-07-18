@@ -43,11 +43,9 @@
         </div>
     </div>    
 
-    <div class="row-fluid" ng-show="error">
+    <div class="row-fluid ng-cloak" ng-show="error">
         <div class="span12">
-            <div class="alert alert-error">
-                {{error}}
-            </div>
+            <div class="alert alert-error" ng-bind="error"></div>
         </div>
     </div>
 
@@ -68,7 +66,7 @@
     <div class="row-fluid">
         <div class="span4">
             <h2>results</h2>
-            <div ng-repeat="day in days">
+            <div class="ng-cloak" ng-repeat="day in days">
                 <div class="day">{{day.date}}</div>
                 <ul  class="day-entries">
                     <li ng-repeat="entry in day.entries">
