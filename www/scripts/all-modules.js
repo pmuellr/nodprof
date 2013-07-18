@@ -144,12 +144,12 @@ module.exports = function(mod) {
 BodyController = function($scope, $http) {
   $scope.refreshFiles = function() {
     var httpResponse;
-    httpResponse = $http.get("api/files");
+    httpResponse = $http.get("api/files.json");
     httpResponse.success(function(data, status, headers, config) {
       return $scope.days = partitionFilesByDays(data);
     });
     return httpResponse.error(function(data, status, headers, config) {
-      return $scope.error("error getting files: " + status);
+      return $scope.error = "error getting files: " + status;
     });
   };
   $scope.showProfile = function(file) {
@@ -164,7 +164,7 @@ BodyController = function($scope, $http) {
     httpResponse = $http.post("api/profileStart");
     httpResponse.success(function(data, status, headers, config) {});
     return httpResponse.error(function(data, status, headers, config) {
-      return $scope.error("error starting profile: " + status);
+      return $scope.error = "error starting profile: " + status;
     });
   };
   $scope.profileStop = function(event) {
@@ -177,7 +177,7 @@ BodyController = function($scope, $http) {
       }), 2000);
     });
     return httpResponse.error(function(data, status, headers, config) {
-      return $scope.error("error starting profile: " + status);
+      return $scope.error = "error starting profile: " + status;
     });
   };
   $scope.resizeChart = function(chart$) {

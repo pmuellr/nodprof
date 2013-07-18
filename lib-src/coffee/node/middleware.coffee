@@ -6,6 +6,7 @@ express  = require "express"
 
 Services = require("./services").Services
 logger   = require "../common/logger"
+utils    = require "../common/utils"
 config   = require "./config"
 
 WWWDIR   = path.join __dirname, "../../www"
@@ -20,8 +21,9 @@ module.exports = (config = defaultConfig) ->
     app.set "services", new Services config
 
     app.use CORSify
+    # app.use log
 
-    app.get  "/api/files",            getFiles
+    app.get  "/api/files.json",       getFiles
     app.get  "/api/files/:file.json", getFile
     app.post "/api/profileStart",     profileStart
     app.post "/api/profileStop",      profileStop
@@ -93,6 +95,12 @@ CORSify = (request, response, next) ->
     next()
 
     return
+
+#-------------------------------------------------------------------------------
+log = (request, response, next) ->
+    logger.log utils.JL request.url
+    # console.log request
+    next()
 
 #-------------------------------------------------------------------------------
 # Copyright 2013 I.B.M.

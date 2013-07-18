@@ -13,6 +13,9 @@ The `nodprof` command can be used to:
 * run a node.js module and profile the execution
 * start an HTTP server used to display profiling results
 
+A static-ish demo of `nodprof` is available at
+<http://muellerware.org/nodprof-static/>
+
 When profiling a node.js module, the profiling results will be stored in a 
 JSON file in a directory indicated by the `nodprof` configuration.  
 

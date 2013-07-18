@@ -18,13 +18,13 @@ BodyController = ($scope, $http) ->
 
     #---------------------------------------------------------------------------
     $scope.refreshFiles = ->
-        httpResponse = $http.get "api/files"
+        httpResponse = $http.get "api/files.json"
 
         httpResponse.success (data, status, headers, config) ->
             $scope.days = partitionFilesByDays data
 
         httpResponse.error (data, status, headers, config) ->
-            $scope.error "error getting files: #{status}"
+            $scope.error = "error getting files: #{status}"
 
     #---------------------------------------------------------------------------
     $scope.showProfile = (file) ->
@@ -43,7 +43,7 @@ BodyController = ($scope, $http) ->
         httpResponse.success (data, status, headers, config) ->
 
         httpResponse.error (data, status, headers, config) ->
-            $scope.error "error starting profile: #{status}"
+            $scope.error = "error starting profile: #{status}"
 
     #---------------------------------------------------------------------------
     $scope.profileStop = (event) ->
@@ -55,7 +55,7 @@ BodyController = ($scope, $http) ->
             setTimeout (-> $scope.refreshFiles()), 2000
 
         httpResponse.error (data, status, headers, config) ->
-            $scope.error "error starting profile: #{status}"
+            $scope.error = "error starting profile: #{status}"
 
     #-------------------------------------------------------------------------------
     $scope.resizeChart = (chart$) ->
