@@ -180,10 +180,36 @@ BodyController = function($scope, $http) {
       return $scope.error("error starting profile: " + status);
     });
   };
+  $scope.resizeChart = function(chart$) {
+    var chartWidth, height, svg$, width;
+    svg$ = $("svg", chart$);
+    width = svg$.attr("width");
+    height = svg$.attr("height");
+    chartWidth = chart$.width();
+    height = height * chartWidth / width;
+    width = chartWidth;
+    svg$.attr({
+      width: width,
+      height: height
+    });
+  };
+  $scope.resizeCharts = function() {
+    var chart, charts$, _i, _len, _results;
+    charts$ = $("#content .chart");
+    _results = [];
+    for (_i = 0, _len = charts$.length; _i < _len; _i++) {
+      chart = charts$[_i];
+      _results.push($scope.resizeChart($(chart)));
+    }
+    return _results;
+  };
   $scope.appName = "nodprof";
   $scope.error = null;
   $scope.days = [];
   $scope.refreshFiles();
+  $(window).resize(function(event) {
+    return $scope.resizeCharts();
+  });
 };
 
 partitionFilesByDays = function(files) {
@@ -320,7 +346,8 @@ profileView.show = function(fileName, $scope, $http) {
   });
   httpResponse = $http.get("api/files/" + fileName);
   httpResponse.success(function(data, status, headers, config) {
-    return addChart(idSel, data);
+    addChart(idSel, data);
+    return $scope.resizeChart($(idSel));
   });
   httpResponse.error(function(data, status, headers, config) {
     return $scope.error("error getting file " + fileName + ": " + status);
@@ -328,7 +355,6 @@ profileView.show = function(fileName, $scope, $http) {
 };
 
 addChart = function(idSel, data) {
-  console.log("woulda added: ", data);
   return renderer.render(idSel, data);
 };
 
@@ -339,7 +365,7 @@ var d3, dumpNode, nodeDescription, partitionize, pruneIdle, removeEmptyChildren,
 d3 = require("d3");
 
 exports.render = function(sel, profile) {
-  var chart, depth, g, h, nodes, partition, profClick, root, svg, w, x, y;
+  var boxHeight, chart, depth, fontSize, g, h, nodes, partition, profClick, root, svg, w, x, y;
   pruneIdle(profile.head);
   root = removeEmptyChildren(profile.head);
   partitionize(root);
@@ -351,9 +377,11 @@ exports.render = function(sel, profile) {
     return d.depth;
   }));
   d3.selectAll("" + sel + " svg").remove();
+  boxHeight = 40;
+  fontSize = 15;
   g = null;
   w = 1000;
-  h = 60 * depth;
+  h = boxHeight * depth;
   x = d3.scale.linear().range([0, w]);
   y = d3.scale.linear().range([0, h]);
   profClick = function(d) {
@@ -365,7 +393,7 @@ exports.render = function(sel, profile) {
     scale = w / x(d.dx);
     offset = -x(d.x) * scale;
     t = g.transition().duration(d3.event.altKey ? 7500 : 750).attr("transform", function(d) {
-      return "translate(" + (offset + scale * x(d.x)) + "," + (h - y(d.y) - 60) + ")";
+      return "translate(" + (offset + scale * x(d.x)) + "," + (h - y(d.y) - boxHeight) + ")";
     });
     t.select("rect").attr("width", function(d) {
       return scale * x(d.dx);
@@ -378,9 +406,9 @@ exports.render = function(sel, profile) {
     });
   };
   chart = d3.select(sel).style("zzz-width", w + "px").style("zzz-height", h + "px");
-  svg = chart.append("svg:svg").attr("width", "100%").attr("height", "100%").attr("viewBox", "0 0 " + w + " " + h).attr("preserveAspectRatio", "xMidYMin");
+  svg = chart.append("svg:svg").attr("width", w).attr("height", h).attr("viewBox", "0 0 " + w + " " + h).attr("zzz-preserveAspectRatio", "xMidYMin");
   g = svg.selectAll("g").data(nodes).enter().append("svg:g").attr("transform", function(d) {
-    return "translate(" + x(d.x) + "," + (h - y(d.y) - 60) + ")";
+    return "translate(" + x(d.x) + "," + (h - y(d.y) - boxHeight) + ")";
   }).on("click", profClick).on("mouseover", updateIdentifiedNode);
   g.append("svg:title").text(nodeDescription);
   g.append("svg:rect").attr("width", function(d) {
@@ -410,7 +438,7 @@ exports.render = function(sel, profile) {
   });
   g.append("svg:text").attr("x", function(d) {
     return x(d.dx) / 2;
-  }).attr("y", h / depth - 20).attr("text-anchor", "middle").attr("font-size", 20).attr("font-family", "Verdana").style("clip-path", function(d, i) {
+  }).attr("y", h / depth - fontSize).attr("text-anchor", "middle").attr("font-size", fontSize).attr("font-family", "Verdana").style("clip-path", function(d, i) {
     return "url(#text-clip-path-" + i + ")";
   }).text(function(d) {
     var func;

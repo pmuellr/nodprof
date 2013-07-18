@@ -57,12 +57,36 @@ BodyController = ($scope, $http) ->
         httpResponse.error (data, status, headers, config) ->
             $scope.error "error starting profile: #{status}"
 
+    #-------------------------------------------------------------------------------
+    $scope.resizeChart = (chart$) ->
+        svg$ = $("svg", chart$)
+
+        width  = svg$.attr "width"
+        height = svg$.attr "height"
+
+        chartWidth = chart$.width()
+        height     = height * chartWidth / width
+        width      = chartWidth
+
+        svg$.attr {width, height}
+
+        return
+
+    #-------------------------------------------------------------------------------
+    $scope.resizeCharts = ->
+        charts$ = $("#content .chart")
+        for chart in charts$
+            $scope.resizeChart $(chart)
+
     #---------------------------------------------------------------------------
     $scope.appName = "nodprof"
     $scope.error   = null
     $scope.days    = []
 
     $scope.refreshFiles()
+
+    $(window).resize (event) ->
+        $scope.resizeCharts()
 
     return
 

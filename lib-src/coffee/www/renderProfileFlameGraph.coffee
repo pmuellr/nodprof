@@ -18,9 +18,12 @@ exports.render = (sel, profile) ->
 
     d3.selectAll("#{sel} svg").remove()
 
+    boxHeight = 40
+    fontSize  = 15
+
     g = null
     w = 1000
-    h = 60 * depth
+    h = boxHeight * depth
     x = d3.scale.linear().range([0, w])
     y = d3.scale.linear().range([0, h])
 
@@ -37,7 +40,7 @@ exports.render = (sel, profile) ->
             .attr("transform", (d) ->
                 "translate(" +
                     (offset + scale * x(d.x)) + "," +
-                    (h - y(d.y) - 60) +
+                    (h - y(d.y) - boxHeight) +
                 ")"
             )
 
@@ -56,16 +59,16 @@ exports.render = (sel, profile) ->
         .style("zzz-height", h + "px")
 
     svg = chart.append("svg:svg")
-        .attr("width",  "100%")
-        .attr("height", "100%")
+        .attr("width",  w)
+        .attr("height", h)
         .attr("viewBox", "0 0 #{w} #{h}")
-        .attr("preserveAspectRatio", "xMidYMin")
+        .attr("zzz-preserveAspectRatio", "xMidYMin")
 
     g = svg.selectAll("g")
         .data(nodes)
     .enter().append("svg:g")
         .attr("transform", (d) -> 
-            "translate(" + x(d.x) + "," + (h - y(d.y) - 60) + ")"
+            "translate(" + x(d.x) + "," + (h - y(d.y) - boxHeight) + ")"
         )
         .on("click",     profClick)
         .on("mouseover", updateIdentifiedNode)
@@ -94,9 +97,9 @@ exports.render = (sel, profile) ->
 
     g.append("svg:text")
         .attr("x", (d) -> x(d.dx)/2)
-        .attr("y", h / depth - 20)
+        .attr("y", h / depth - fontSize)
         .attr("text-anchor", "middle")
-        .attr("font-size", 20)
+        .attr("font-size", fontSize)
         .attr("font-family", "Verdana")
         .style("clip-path", (d,i) ->
             "url(#text-clip-path-" + i + ")"

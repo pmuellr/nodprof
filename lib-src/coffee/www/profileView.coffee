@@ -41,6 +41,8 @@ profileView.show = (fileName, $scope, $http) ->
     httpResponse.success (data, status, headers, config) ->
         addChart idSel, data
 
+        $scope.resizeChart $(idSel)
+
     httpResponse.error (data, status, headers, config) ->
         $scope.error "error getting file #{fileName}: #{status}"
 
@@ -48,7 +50,6 @@ profileView.show = (fileName, $scope, $http) ->
 
 #-------------------------------------------------------------------------------
 addChart = (idSel, data) ->
-    console.log "woulda added: ", data
     renderer.render idSel, data
 
 #-------------------------------------------------------------------------------
