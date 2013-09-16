@@ -12,7 +12,7 @@ oFileName = "#{iFileName}.map"
 
 iFile     = fs.readFileSync iFileName, "utf8"
 
-match = iFile.match /\/\/@ sourceMappingURL=data:application\/json;base64,(.*)\n/
+match = iFile.match /\n\/\/. sourceMappingURL=data:application\/json;base64,(.*)\n/
 if !match? 
     console.log "no sourcemap in file"
     process.exit()
@@ -44,8 +44,8 @@ data = JSON.stringify data, null, 4
 
 oFileBaseName = path.basename oFileName
 
-regex = /\/\/@ sourceMappingURL=data:application\/json;base64,(.*)\n/
-repl  = "//@ sourceMappingURL=#{oFileBaseName}\n"
+regex = /\n\/\/. sourceMappingURL=data:application\/json;base64,(.*)\n/
+repl  = "\n//# sourceMappingURL=#{oFileBaseName}\n"
 iFile = iFile.replace regex, repl
 
 fs.writeFileSync iFileName, iFile

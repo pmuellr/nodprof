@@ -18,7 +18,7 @@ exports.runServer = function() {
   app = express();
   app.use("/nodprof/", nodprof.middleware());
   app.use(function(request, response, next) {
-    response.send("this page runs a benchmark, try <a href='nodprof/'>profiling it</a>!");
+    response.send("<p>This page runs a benchmark, try profiling it.\n<ul>\n<li>Click on this link to the profile to open it in a new tab:\n[<a target=\"blank\"href='nodprof/'>open profiler</a>]\n<li>In the profiling tab, click \"Start Profiling\"\n<li>In this tab, reload the page, which will run an expensive task\n<li>In the profiling tab, click \"Stop Profiling\"\n<li>In the profiling tab, reload the page, and the result\nshould be added in the left-hand navigator.  The expensive functions\n<tt>runInner()</tt> and <tt>runOuter()</tt> should show up here.\n</ul>");
     return timeWaster.run(50);
   });
   console.log("starting server at http://localhost:" + port);

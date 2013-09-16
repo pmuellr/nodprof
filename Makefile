@@ -98,7 +98,8 @@ distclean: clean
 samples: build
 	@mkdir -p tmp
 	@echo running samples
-	node lib/node/cli samples/delta-blue
+	node lib/node/cli samples/time-waster
+	node samples/time-waster-server
 
 #-------------------------------------------------------------------------------
 test: build

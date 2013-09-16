@@ -10676,7 +10676,7 @@ module.exports = d3;
 },{}],12:[function(require,module,exports){
 module.exports={
   "name": "nodprof",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "keywords": [
     "profiling"
   ],
@@ -10710,5 +10710,5 @@ module.exports={
 }
 
 },{}]},{},[4])
-//@ sourceMappingURL=all-modules.js.map
+//# sourceMappingURL=all-modules.js.map
 ;

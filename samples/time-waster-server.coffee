@@ -17,7 +17,17 @@ exports.runServer = ->
     app.use "/nodprof/", nodprof.middleware()
     app.use (request, response, next) ->
         response.send """
-            this page runs a benchmark, try <a href='nodprof/'>profiling it</a>!
+            <p>This page runs a benchmark, try profiling it.
+            <ul>
+            <li>Click on this link to the profile to open it in a new tab:
+            [<a target="blank"href='nodprof/'>open profiler</a>]
+            <li>In the profiling tab, click "Start Profiling"
+            <li>In this tab, reload the page, which will run an expensive task
+            <li>In the profiling tab, click "Stop Profiling"
+            <li>In the profiling tab, reload the page, and the result
+            should be added in the left-hand navigator.  The expensive functions
+            <tt>runInner()</tt> and <tt>runOuter()</tt> should show up here.
+            </ul>
             """
         timeWaster.run 50
 
